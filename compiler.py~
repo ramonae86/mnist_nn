@@ -1,0 +1,84 @@
+import numpy as np
+import tensorflow as tf
+# from util import *
+
+# tf.reset_default_graph()
+
+# Create some variables.
+# variable name and shape has to be known beforehand
+# v1 = tf.get_variable("l1_weights", shape=[768, 512])
+# v2 = tf.get_variable("l2_weights", shape=[512, 128])
+
+# Add ops to save and restore all the variables.
+# saver = tf.train.Saver()
+
+# Later, launch the model, use the saver to restore variables from disk, and
+# do some work with the model.
+
+
+def sigmoid(x):
+    y = 1/(1+np.exp(-x))
+    return y.round(decimals=2)
+
+
+def nn_compile(nn_input):
+    weights = []
+    bias = []
+    with tf.Session() as sess:
+        saver = tf.train.import_meta_graph('./saved_models/model.ckpt.meta')
+        saver.restore(sess, tf.train.latest_checkpoint('./saved_models/'))
+        weights.append(sess.run('l1_weights:0'))
+        bias.append(sess.run('l1_bias:0'))
+        weights.append(sess.run('l2_weights:0'))
+        bias.append(sess.run('l2_bias:0'))
+        weights.append(sess.run('l3_weights:0'))
+        bias.append(sess.run('l3_bias:0'))
+        weights.append(sess.run('out_weights:0'))
+        bias.append(sess.run('out_bias:0'))
+
+    # load weights into memory array
+
+
+
+
+
+    # load input to layer buffer
+    input_layer = nn_input
+
+    if len(weights) == len(bias):
+        # between each pair of layers
+        for nth_layer in range(len(weights)):
+            output_layer = np.zeros(len(bias[nth_layer]))
+            for nth_output_node in range(weights[nth_layer].shape[1]):
+                mac = 0
+                for nth_input_node in range(weights[nth_layer].shape[0]):
+                    mac += input_layer[nth_input_node] * weights[nth_layer][nth_input_node][nth_output_node]
+                mac += bias[nth_layer][nth_output_node]
+                mac = sigmoid(mac)
+                output_layer[nth_output_node] = mac
+            input_layer = output_layer
+        return output_layer
+    else:
+        print("weights and bias length don't match!")
+        print("weights length: ", len(weights))
+        print("bias length: ", len(bias))
+
+
+if __name__ == '__main__':
+    (X_train, y_train), (X_test, y_test) = tf.keras.datasets.mnist.load_data()
+
+    y_train = tf.keras.utils.to_categorical(y_train)
+    y_test = tf.keras.utils.to_categorical(y_test)
+
+    num_train_samples = y_train.shape[0]
+    num_test_samples = y_test.shape[0]
+    X_train = X_train.reshape(num_train_samples, 784)
+    X_test = X_test.reshape(num_test_samples, 784)
+
+    for i in range(100):
+        nn_input = X_train[i]
+        predict = nn_compile(nn_input)
+        if np.argmax(predict) == np.argmax(y_train[i]):
+            print("correct")
+        else:
+            print("incorrect")
