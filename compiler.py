@@ -193,6 +193,28 @@ def line_to_hex(line, scale, signed):
         exit()
 
 
+def bias_to_hex(biases, num_bytes):
+    if len(biases) < 4:
+        complete_biases = biases + [0] * (4 - len(biases))
+    elif len(biases) == 4:
+        complete_biases = biases
+    else:
+        print("bias_array length should be less than 4")
+        return False
+
+    # if num_bytes == 1:
+    #     pass
+    # elif num_bytes == 2:
+    #     pass
+    # elif num_bytes ==3:
+    #     pass
+    # elif num_bytes ==4:
+    #     pass
+    # else:
+    #     print("wrong number of bytes specified")
+    #     return False
+
+
 def nn_compile_with_inference():
     """Function Description:
     Suppose SPI block and inference block work, meaning we only need to write weights, bias and layer descriptions into memory array in the correct order.
