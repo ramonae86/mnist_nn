@@ -116,6 +116,66 @@ def line_to_binary(line, scale, signed):
         exit()
 
 
+def biases_to_binary(biases, scale, num_bytes = 4):
+    """
+
+    :param biases: array of bias, type is ndarray!
+    :param scale: bias scale
+    :param num_bytes: number of bytes to encode each bias
+    :return:
+    """
+    if len(biases) < 4:
+        complete_biases = np.append(biases, [0] * (4 - len(biases)))
+    elif len(biases) == 4:
+        complete_biases = biases
+    else:
+        print("bias_array length should be less than 4")
+        return False
+
+    bin_array = []
+    for ith_bias in complete_biases:
+        if num_bytes == 4:
+            if ith_bias * scale > 2 ** 31 - 1:
+                entry = 2 ** 31 - 1
+            elif ith_bias * scale < 0:
+                entry = 0
+            else:
+                entry = ith_bias * scale
+            binary = int(entry) & 0xFFFFFFFF
+        elif num_bytes == 3:
+            if ith_bias * scale > 2 ** 23 - 1:
+                entry = 2 ** 23 - 1
+            elif ith_bias * scale < 0:
+                entry = 0
+            else:
+                entry = ith_bias * scale
+            binary = int(entry) & 0xFFFFFF
+        elif num_bytes == 2:
+            if ith_bias * scale > 2 ** 15 - 1:
+                entry = 2 ** 15 - 1
+            elif ith_bias * scale < 0:
+                entry = 0
+            else:
+                entry = ith_bias * scale
+            binary = int(entry) & 0xFFFF
+        else:
+            if ith_bias * scale > 2 ** 7 - 1:
+                entry = 2 ** 7 - 1
+            elif ith_bias * scale < 0:
+                entry = 0
+            else:
+                entry = ith_bias * scale
+            binary = int(entry) & 0xFF
+        bin_array.append(format(binary, '032b').upper())
+    # print(bin_array)
+    # interleave array
+    interleaved_array = []
+    for i in range(num_bytes):
+        interleaved_bias = bin_array[0][32 - 8*i - 8 :32 - 8*i] + bin_array[1][32 - 8*i - 8 :32 - 8*i] + bin_array[2][32 - 8*i - 8 :32 - 8*i] + bin_array[3][32 - 8*i - 8 :32 - 8*i]
+        interleaved_array.append(interleaved_bias)
+    return interleaved_array
+
+
 def line_to_hex(line, scale, signed):
     """
     Convert a line of weights or bias to four 2-digit hex number
@@ -193,29 +253,69 @@ def line_to_hex(line, scale, signed):
         exit()
 
 
-def bias_to_hex(biases, num_bytes):
+def biases_to_hex(biases, scale, num_bytes = 4):
+    """
+
+    :param biases: array of bias, type is ndarray!
+    :param scale: bias scale
+    :param num_bytes: number of bytes to encode each bias
+    :return:
+    """
     if len(biases) < 4:
-        complete_biases = biases + [0] * (4 - len(biases))
+        complete_biases = np.append(biases, [0] * (4 - len(biases)))
     elif len(biases) == 4:
         complete_biases = biases
     else:
         print("bias_array length should be less than 4")
         return False
 
-    # if num_bytes == 1:
-    #     pass
-    # elif num_bytes == 2:
-    #     pass
-    # elif num_bytes ==3:
-    #     pass
-    # elif num_bytes ==4:
-    #     pass
-    # else:
-    #     print("wrong number of bytes specified")
-    #     return False
+    hex_array = []
+    for ith_bias in complete_biases:
+        if num_bytes == 4:
+            if ith_bias * scale > 2 ** 31 - 1:
+                entry = 2 ** 31 - 1
+            elif ith_bias * scale < 0:
+                entry = 0
+            else:
+                entry = ith_bias * scale
+            binary = int(entry) & 0xFFFFFFFF
+        elif num_bytes == 3:
+            if ith_bias * scale > 2 ** 23 - 1:
+                entry = 2 ** 23 - 1
+            elif ith_bias * scale < 0:
+                entry = 0
+            else:
+                entry = ith_bias * scale
+            binary = int(entry) & 0xFFFFFF
+        elif num_bytes == 2:
+            if ith_bias * scale > 2 ** 15 - 1:
+                entry = 2 ** 15 - 1
+            elif ith_bias * scale < 0:
+                entry = 0
+            else:
+                entry = ith_bias * scale
+            binary = int(entry) & 0xFFFF
+        else:
+            if ith_bias * scale > 2 ** 7 - 1:
+                entry = 2 ** 7 - 1
+            elif ith_bias * scale < 0:
+                entry = 0
+            else:
+                entry = ith_bias * scale
+            binary = int(entry) & 0xFF
+        hex_array.append(format(binary, '08x').upper())
+    # print(hex_array)
+    # interleave array
+    interleaved_array = []
+    for i in range(num_bytes):
+        interleaved_bias = hex_array[0][8 - 2*i - 2 :8 - 2*i] + hex_array[1][8 - 2*i - 2 :8 - 2*i] + hex_array[2][8 - 2*i - 2 :8 - 2*i] + hex_array[3][8 - 2*i - 2 :8 - 2*i]
+        interleaved_array.append(interleaved_bias)
+    for i in range(len(interleaved_array)):
+        interleaved_array[i] = interleaved_array[i][0:2] + ' ' + interleaved_array[i][2:4] + ' ' + interleaved_array[i][4:6] + ' ' + interleaved_array[i][6:8]
+    return interleaved_array
 
 
-def nn_compile_with_inference():
+def nn_compile_with_inference(input_layer):
     """Function Description:
     Suppose SPI block and inference block work, meaning we only need to write weights, bias and layer descriptions into memory array in the correct order.
     This is only for fully connected layer, for now.
@@ -227,6 +327,7 @@ def nn_compile_with_inference():
     weight_scale = 30
     x_scale = 5
     bias_scale = weight_scale * x_scale
+    num_bias_bytes = 2
 
     # flatten weights and load weights into memory array
     array_data = []
@@ -259,9 +360,8 @@ def nn_compile_with_inference():
                     tmp_weight = weights[nth_layer][nth_input_node][ith_chunk * 4: ith_chunk * 4 + 4]
                     array_data.append(line_to_binary(line=tmp_weight, scale=weight_scale, signed=True))
                 # every bias is 32-bit
-                for i in range(4):
-                    tmp_bias = [bias[nth_layer][ith_chunk * 4 + i]]
-                    array_data.append(line_to_binary(line=tmp_bias, scale=bias_scale, signed=True))
+                tmp_bias = bias[nth_layer][ith_chunk * 4 : ith_chunk * 4 + 4]
+                array_data += biases_to_binary(biases=tmp_bias, scale=bias_scale, num_bytes=num_bias_bytes)
 
             if num_leftover > 0: # in case number of neurons is not multiple of 4 in output layer
                 for nth_input_node in range(num_in_neu):
@@ -269,9 +369,8 @@ def nn_compile_with_inference():
                     tmp_weight = np.append(weights[nth_layer][nth_input_node][-num_leftover:], [0]*(4-num_leftover))
                     array_data.append(line_to_binary(line=tmp_weight, scale=weight_scale, signed=True))
                 # every bias is 32-bit
-                for i in range(num_leftover):
-                    tmp_bias = [bias[nth_layer][-(num_leftover-i)]]
-                    array_data.append(line_to_binary(line=tmp_bias, scale=bias_scale, signed=True))
+                tmp_bias = bias[nth_layer][-num_leftover:]
+                array_data += biases_to_binary(biases=tmp_bias, scale=bias_scale, num_bytes=num_bias_bytes)
     else:
         print("weights and bias length don't match!")
         print("weights length: ", len(weights))
@@ -291,6 +390,7 @@ def nn_compile_with_spi(input_layer):
     weight_scale = 30
     x_scale = 5
     bias_scale = weight_scale * x_scale
+    num_bias_bytes = 2
 
     array_data = []
     for nth_layer in range(len(weights)):
@@ -307,18 +407,18 @@ def nn_compile_with_spi(input_layer):
                 # every 4 weights constitute one line
                 tmp_weight = weights[nth_layer][nth_input_node][ith_chunk * 4: ith_chunk * 4 + 4]
                 array_data.append(line_to_hex(line=tmp_weight, scale=weight_scale, signed=True))
-            # every 4 biases constitute one line
+            # every bias is 32-bit
             tmp_bias = bias[nth_layer][ith_chunk * 4: ith_chunk * 4 + 4]
-            array_data.append(line_to_hex(line=tmp_bias, scale=bias_scale, signed=True))
+            array_data += biases_to_hex(biases=tmp_bias, scale=bias_scale, num_bytes=num_bias_bytes)
 
         if num_leftover > 0:  # in case number of neurons is not multiple of 4 in output layer
             for nth_input_node in range(num_in_neu):
                 # leftover weights appended with padding 0s to make 32-bit line
                 tmp_weight = np.append(weights[nth_layer][nth_input_node][-num_leftover:], [0] * (4 - num_leftover))
                 array_data.append(line_to_hex(line=tmp_weight, scale=weight_scale, signed=True))
-            # leftover biases appended with padding 0s to make 32-bit line
-            tmp_bias = np.append(bias[nth_layer][-num_leftover:], [0] * (4 - num_leftover))
-            array_data.append(line_to_hex(line=tmp_bias, scale=bias_scale, signed=True))
+                # every bias is 32-bit
+                tmp_bias = bias[nth_layer][-num_leftover:]
+                array_data += biases_to_hex(biases=tmp_bias, scale=bias_scale, num_bytes=num_bias_bytes)
 
     with open('PI_BLOCK_512.list', 'w') as data_file:
         i = 0
@@ -350,11 +450,6 @@ def nn_compile_with_spi(input_layer):
         lb_start_address = 0
         lb_current_address = lb_start_address + 0
 
-
-
-
-
-
     pass
 
 
@@ -371,7 +466,7 @@ if __name__ == '__main__':
 
     for i in range(1):
         # print(X_train[i])
-        predict = nn_compile_with_spi(X_train[i])
+        predict = nn_compile_with_inference(X_train[i])
 #        if np.argmax(predict) == np.argmax(y_train[i]):
 #            print("correct")
 #        else:
