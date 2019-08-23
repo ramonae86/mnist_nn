@@ -118,6 +118,7 @@ def line_to_binary(line, scale, signed):
 
 def biases_to_binary(biases, scale, num_bytes = 4):
     """
+    convert an array of bias to an array of binary number, interleaved
 
     :param biases: array of bias, type is ndarray!
     :param scale: bias scale
@@ -255,6 +256,7 @@ def line_to_hex(line, scale, signed):
 
 def biases_to_hex(biases, scale, num_bytes = 4):
     """
+    convert an array of bias to an array of hex number, interleaved
 
     :param biases: array of bias, type is ndarray!
     :param scale: bias scale
@@ -393,6 +395,7 @@ def nn_compile_with_spi(input_layer):
     num_bias_bytes = 2
 
     array_data = []
+
     for nth_layer in range(len(weights)):
         num_in_neu = weights[nth_layer].shape[0]
         num_out_neu = weights[nth_layer].shape[1]
@@ -420,6 +423,7 @@ def nn_compile_with_spi(input_layer):
                 tmp_bias = bias[nth_layer][-num_leftover:]
                 array_data += biases_to_hex(biases=tmp_bias, scale=bias_scale, num_bytes=num_bias_bytes)
 
+    print(array_data)
     with open('PI_BLOCK_512.list', 'w') as data_file:
         i = 0
         for neuron in input_layer:
@@ -445,10 +449,15 @@ def nn_compile_with_spi(input_layer):
         testbench.write('TASK_RST;\n')
 
         memory_start_address = 0
-        memory_current_address = memory_start_address + 0
 
         lb_start_address = 0
-        lb_current_address = lb_start_address + 0
+
+        testbench.write('TASK_INIT_WRITE_PI;\n')
+        for i in range(len(input_layer)):
+            testbench.write("TASK_LBWR(16'h{});\n".format(format(lb_start_address+i, '04x').upper()))
+
+        for i in range(len(array_data)):
+            testbench.write("TASK_PP(16'h{},4);\n".format(format(memory_start_address + i, '04x').upper()))
 
     pass
 
@@ -466,7 +475,7 @@ if __name__ == '__main__':
 
     for i in range(1):
         # print(X_train[i])
-        predict = nn_compile_with_inference(X_train[i])
+        predict = nn_compile_with_spi(X_train[i])
 #        if np.argmax(predict) == np.argmax(y_train[i]):
 #            print("correct")
 #        else:
