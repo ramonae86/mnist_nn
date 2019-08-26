@@ -21,7 +21,7 @@ def sigmoid(x):
     return y.round(decimals=2)
 
 
-def extract_weight_bias():
+def extract_weight_bias_from_model():
     """
     read weights and bias from files
 
@@ -43,6 +43,25 @@ def extract_weight_bias():
     return weights, bias
 
 
+def extract_weight_bias_from_file():
+    """
+    read weights and bias from files
+
+    :return: two matrix, one for weights and one for bias
+    """
+    weights = []
+    bias = []
+    weights.append(np.load("L1Weights.npy"))
+    weights.append(np.load("L2Weights.npy"))
+    weights.append(np.load("L3Weights.npy"))
+    weights.append(np.load("outWeights.npy"))
+    bias.append(np.load("L1Bias.npy"))
+    bias.append(np.load("L2Bias.npy"))
+    bias.append(np.load("L3Bias.npy"))
+    bias.append(np.load("outBias.npy"))
+    return weights, bias
+
+
 def nn_compile_logic(nn_input):
     """
     running all MAC operations on pure software level
@@ -50,7 +69,7 @@ def nn_compile_logic(nn_input):
     :param nn_input: input layer matrix
     :return: output layer matrix
     """
-    weights, bias = extract_weight_bias()
+    weights, bias = extract_weight_bias_from_model()
 
     # load input to layer buffer
     input_layer = nn_input
@@ -254,7 +273,7 @@ def line_to_hex(line, scale, signed):
         exit()
 
 
-def biases_to_hex(biases, scale, num_bytes = 4):
+def biases_to_hex(biases, scale, num_bytes=4):
     """
     convert an array of bias to an array of hex number, interleaved
 
@@ -325,7 +344,7 @@ def nn_compile_with_inference(input_layer):
     :return:
     array_data: to be stored in memory array will be called by another
     """
-    weights, bias = extract_weight_bias()
+    weights, bias = extract_weight_bias_from_model()
     weight_scale = 30
     x_scale = 5
     bias_scale = weight_scale * x_scale
@@ -388,7 +407,7 @@ def nn_compile_with_spi(input_layer):
 
     :return:
     """
-    weights, bias = extract_weight_bias()
+    weights, bias = extract_weight_bias_from_file()
     weight_scale = 30
     x_scale = 5
     bias_scale = weight_scale * x_scale
@@ -423,7 +442,7 @@ def nn_compile_with_spi(input_layer):
                 tmp_bias = bias[nth_layer][-num_leftover:]
                 array_data += biases_to_hex(biases=tmp_bias, scale=bias_scale, num_bytes=num_bias_bytes)
 
-    print(array_data)
+    # print(array_data)
     with open('PI_BLOCK_512.list', 'w') as data_file:
         i = 0
         for neuron in input_layer:
@@ -459,7 +478,43 @@ def nn_compile_with_spi(input_layer):
         for i in range(len(array_data)):
             testbench.write("TASK_PP(16'h{},4);\n".format(format(memory_start_address + i, '04x').upper()))
 
-    pass
+        array_address = 0
+        for nth_layer in range(len(weights)):
+            if nth_layer % 2 == 1:
+                lb_input_start_address = 512
+                lb_output_start_address = 0
+            else:
+                lb_input_start_address = 0
+                lb_output_start_address = 512
+            num_in_neu = weights[nth_layer].shape[0]
+            num_out_neu = weights[nth_layer].shape[1]
+            num_chunks = num_out_neu // 4
+            num_leftover = num_out_neu % 4
+            lb_output_current_address = lb_output_start_address
+
+            for ith_chunk in range(num_chunks):
+                lb_input_current_address = lb_input_start_address
+                for nth_input_node in range(num_in_neu):
+                    testbench.write("TASK_MACCYC(0,32'h{}{});\n".format(format(array_address, '04x').upper(), format(lb_input_current_address, '04x').upper()))
+                    array_address += 1
+                    lb_input_current_address += 1
+                testbench.write("TASK_BIASBUF({},16'h{});\n".format(num_bias_bytes, format(array_address, '04x').upper()))
+                array_address += num_bias_bytes
+                for i in range(4):
+                    testbench.write("TASK_NEURONACT(32'h{}{});\n".format(format(i+1, '04x').upper(), format(lb_output_current_address, '04x').upper()))
+                    lb_output_current_address += 1
+
+            if num_leftover > 0:
+                lb_input_current_address = lb_input_start_address
+                for nth_input_node in range(num_in_neu):
+                    testbench.write("TASK_MACCYC(0,32'h{}{});\n".format(format(array_address, '04x').upper(), format(lb_input_current_address, '04x').upper()))
+                    array_address += 1
+                    lb_input_current_address += 1
+                testbench.write("TASK_BIASBUF({},16'h{});\n".format(num_bias_bytes, format(array_address, '04x').upper()))
+                array_address += num_bias_bytes
+                for i in range(num_leftover):
+                    testbench.write("TASK_NEURONACT(32'h{}{});\n".format(format(i+1, '04x').upper(), format(lb_output_current_address, '04x').upper()))
+                    lb_output_current_address += 1
 
 
 if __name__ == '__main__':
