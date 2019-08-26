@@ -67,7 +67,6 @@ a = np.array([1, 2555, 99142])
 print(biases_to_binary(a, scale = 1, num_bytes=2))
 print(biases_to_binary(a, scale = 1, num_bytes=4))
 
-
 b = 234
 print(format(b, '04x').upper())
 
