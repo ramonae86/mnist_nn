@@ -408,7 +408,7 @@ def nn_compile_with_spi(input_layer):
     :return:
     """
     weights, bias = extract_weight_bias_from_file()
-    weight_scale = 30
+    weight_scale = 1
     x_scale = 5
     bias_scale = weight_scale * x_scale
     num_bias_bytes = 2
@@ -428,25 +428,29 @@ def nn_compile_with_spi(input_layer):
             for nth_input_node in range(num_in_neu):
                 # every 4 weights constitute one line
                 tmp_weight = weights[nth_layer][nth_input_node][ith_chunk * 4: ith_chunk * 4 + 4]
+                # print(tmp_weight)
                 array_data.append(line_to_hex(line=tmp_weight, scale=weight_scale, signed=True))
             # every bias is 32-bit
             tmp_bias = bias[nth_layer][ith_chunk * 4: ith_chunk * 4 + 4]
+            # print(tmp_bias)
             array_data += biases_to_hex(biases=tmp_bias, scale=bias_scale, num_bytes=num_bias_bytes)
 
         if num_leftover > 0:  # in case number of neurons is not multiple of 4 in output layer
             for nth_input_node in range(num_in_neu):
                 # leftover weights appended with padding 0s to make 32-bit line
                 tmp_weight = np.append(weights[nth_layer][nth_input_node][-num_leftover:], [0] * (4 - num_leftover))
+                # print(tmp_weight)
                 array_data.append(line_to_hex(line=tmp_weight, scale=weight_scale, signed=True))
                 # every bias is 32-bit
-                tmp_bias = bias[nth_layer][-num_leftover:]
-                array_data += biases_to_hex(biases=tmp_bias, scale=bias_scale, num_bytes=num_bias_bytes)
+            tmp_bias = bias[nth_layer][-num_leftover:]
+            # print(tmp_bias)
+            array_data += biases_to_hex(biases=tmp_bias, scale=bias_scale, num_bytes=num_bias_bytes)
 
     # print(array_data)
     with open('PI_BLOCK_512.list', 'w') as data_file:
         i = 0
         for neuron in input_layer:
-            data_file.write(line_to_hex([neuron], scale=5, signed=False))
+            data_file.write(line_to_hex([neuron], scale=x_scale, signed=False))
             if i % 2 == 0:
                 data_file.write(' ')
             else:
@@ -528,10 +532,21 @@ if __name__ == '__main__':
     X_train = X_train.reshape(num_train_samples, 784)
     X_test = X_test.reshape(num_test_samples, 784)
 
-    for i in range(1):
-        # print(X_train[i])
-        predict = nn_compile_with_spi(X_train[i])
-#        if np.argmax(predict) == np.argmax(y_train[i]):
-#            print("correct")
-#        else:
-#            print("incorrect")
+    np.save("L1Weights", np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]))
+    np.save("L2Weights", np.array([[17, 18, 19, 20, 21], [22, 23, 24, 25, 26], [27, 28, 29, 30, 31], [32, 33, 34, 35, 36]]))
+    np.save("L3Weights", np.array([[37, 38, 39], [40, 41, 42], [43, 44, 45], [46, 47, 48], [49, 50, 51]]))
+    np.save("outWeights", np.array([[52, 53], [54, 55], [56, 57]]))
+
+    np.save("L1Bias", np.array([128, 129, 130, 131]))
+    np.save("L2Bias", np.array([132, 133, 134, 135, 136]))
+    np.save("L3Bias", np.array([137, 138, 139]))
+    np.save("outBias", np.array([140, 141]))
+
+    nn_compile_with_spi(np.array([1, 2, 3, 4]))
+
+    # for i in range(1):
+    #     predict = nn_compile_with_spi(X_train[i])
+    #     if np.argmax(predict) == np.argmax(y_train[i]):
+    #         print("correct")
+    #     else:
+    #         print("incorrect")
