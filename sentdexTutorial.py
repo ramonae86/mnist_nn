@@ -100,25 +100,17 @@ def train_neural_network(x, y, lr):
             # print('Accuracy: ', accuracy)
             # accuracy_list.append(accuracy)
 
-        # t = time.time()
-        # correct = tf.equal(tf.argmax(prediction, 1), tf.argmax(y, 1))
-        # accuracy = tf.reduce_mean(tf.cast(correct, tf.float32))
-        # accuracy = accuracy.eval({x: X_test, y: y_test})
-        # print('Accuracy: ', accuracy)
-        # accuracy_list.append(accuracy)
-        # print("time elapsed for testing: {}".format(time.time()-t))
+        t = time.time()
+        correct = tf.equal(tf.argmax(prediction, 1), tf.argmax(y, 1))
+        accuracy = tf.reduce_mean(tf.cast(correct, tf.float32))
+        accuracy = accuracy.eval({x: X_test, y: y_test})
+        print('Accuracy: ', accuracy)
+        accuracy_list.append(accuracy)
+        print("time elapsed for testing: {}".format(time.time()-t))
 
         saver = tf.train.Saver()
         save_path = saver.save(sess, './saved_models/model.ckpt')
         print("Model saved in path: {}".format(save_path))
-
-        # tf.compat.v1.saved_model.simple_save(
-        #     session = sess,
-        #     export_dir = './saved_models/model',
-        #     inputs={"x": x},
-        #     outputs={"y": y},
-        #     legacy_init_op=None
-        # )
 
         l1weights = get_var('l1_weights').eval()
         np.save("L1Weights", l1weights)
@@ -145,13 +137,10 @@ def train_neural_network(x, y, lr):
     return accuracy_list
 
 
-t = time.time()
-
 # learning_rate_list = [0.0001, 0.0005, 0.001, 0.005, 0.01, 0.05, 0.1]
 learning_rate_list = [0.001, ]
 for lr in learning_rate_list:
     accu_list = train_neural_network(x = x, y = y, lr = lr)
-    # plt.plot(accu_list, label = 'lr={}'.format(lr))
+    plt.plot(accu_list, label = 'lr={}'.format(lr))
 plt.legend(loc=0)
 plt.show()
-print(time.time()-t)

@@ -536,12 +536,10 @@ if __name__ == '__main__':
     np.save("L2Weights", np.array([[17, 18, 19, 20, 21], [22, 23, 24, 25, 26], [27, 28, 29, 30, 31], [32, 33, 34, 35, 36]]))
     np.save("L3Weights", np.array([[37, 38, 39], [40, 41, 42], [43, 44, 45], [46, 47, 48], [49, 50, 51]]))
     np.save("outWeights", np.array([[52, 53], [54, 55], [56, 57]]))
-
     np.save("L1Bias", np.array([128, 129, 130, 131]))
     np.save("L2Bias", np.array([132, 133, 134, 135, 136]))
     np.save("L3Bias", np.array([137, 138, 139]))
     np.save("outBias", np.array([140, 141]))
-
     nn_compile_with_spi(np.array([1, 2, 3, 4]))
 
     # for i in range(1):
