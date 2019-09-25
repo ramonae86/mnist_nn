@@ -10,12 +10,9 @@
       <change beforePath="$PROJECT_DIR$/L3Bias.npy" beforeDir="false" afterPath="$PROJECT_DIR$/L3Bias.npy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/L3Weights.npy" beforeDir="false" afterPath="$PROJECT_DIR$/L3Weights.npy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/compiler.py" beforeDir="false" afterPath="$PROJECT_DIR$/compiler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_list.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data_list.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/outBias.npy" beforeDir="false" afterPath="$PROJECT_DIR$/outBias.npy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/outWeights.npy" beforeDir="false" afterPath="$PROJECT_DIR$/outWeights.npy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/saved_models/model.ckpt.data-00000-of-00001" beforeDir="false" afterPath="$PROJECT_DIR$/saved_models/model.ckpt.data-00000-of-00001" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/saved_models/model.ckpt.index" beforeDir="false" afterPath="$PROJECT_DIR$/saved_models/model.ckpt.index" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/saved_models/model.ckpt.meta" beforeDir="false" afterPath="$PROJECT_DIR$/saved_models/model.ckpt.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sentdexTutorial.py" beforeDir="false" afterPath="$PROJECT_DIR$/sentdexTutorial.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -38,11 +35,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sentdexTutorial.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="595">
-              <caret line="120" column="50" selection-start-line="120" selection-start-column="50" selection-end-line="120" selection-end-column="50" />
+            <state relative-caret-position="660">
+              <caret line="38" selection-start-line="38" selection-end-line="38" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
               </folding>
@@ -50,14 +47,23 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/compiler.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="10200">
-              <caret line="511" column="32" selection-start-line="511" selection-start-column="32" selection-end-line="511" selection-end-column="32" />
+            <state relative-caret-position="290">
+              <caret line="471" column="56" lean-forward="true" selection-start-line="471" selection-start-column="56" selection-end-line="471" selection-end-column="56" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/data_list.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="160">
+              <caret line="8" column="32" lean-forward="true" selection-start-line="8" selection-start-column="32" selection-end-line="8" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -106,8 +112,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
-              <caret line="16" column="10" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
+            <state relative-caret-position="480">
+              <caret line="24" column="34" selection-start-line="24" selection-start-column="34" selection-end-line="24" selection-end-column="34" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -144,17 +150,18 @@
         <option value="$PROJECT_DIR$/genLoadMem.py" />
         <option value="$PROJECT_DIR$/util.py" />
         <option value="$PROJECT_DIR$/playWithSentdexWeightsBias.py" />
-        <option value="$PROJECT_DIR$/compiler.py" />
-        <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/sentdexTutorial.py" />
+        <option value="$PROJECT_DIR$/test.py" />
+        <option value="$PROJECT_DIR$/data_list.txt" />
+        <option value="$PROJECT_DIR$/compiler.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-7" />
-    <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="x" value="2390" />
+    <option name="y" value="-380" />
+    <option name="width" value="1214" />
+    <option name="height" value="616" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -162,6 +169,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -178,7 +186,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -196,7 +203,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.sentdexTutorial">
+  <component name="RunManager" selected="Python.compiler">
     <configuration name="compiler" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="mnist_nn" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -304,10 +311,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.compiler" />
+        <item itemvalue="Python.test" />
         <item itemvalue="Python.sentdexTutorial" />
         <item itemvalue="Python.playWithSentdexWeightsBias" />
-        <item itemvalue="Python.test" />
-        <item itemvalue="Python.compiler" />
         <item itemvalue="Python.genLoadMem" />
       </list>
     </recent_temporary>
@@ -343,15 +350,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="1912" y="-369" width="2576" height="1416" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13856691" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.10323089" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32969603" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.31960997" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.31956354" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.28448948" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -432,13 +439,6 @@
     <entry file="file://$PROJECT_DIR$/mem.v">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/data_list.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="460">
-          <caret line="23" column="32" selection-start-line="23" selection-start-column="32" selection-end-line="23" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/testbench.vh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="336">
@@ -450,16 +450,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3700">
           <caret line="191" column="24" selection-start-line="191" selection-start-column="24" selection-end-line="191" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/compiler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="10200">
-          <caret line="511" column="32" selection-start-line="511" selection-start-column="32" selection-end-line="511" selection-end-column="32" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
@@ -501,8 +491,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="16" column="10" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
+        <state relative-caret-position="480">
+          <caret line="24" column="34" selection-start-line="24" selection-start-column="34" selection-end-line="24" selection-end-column="34" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
@@ -511,10 +501,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sentdexTutorial.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="120" column="50" selection-start-line="120" selection-start-column="50" selection-end-line="120" selection-end-column="50" />
+        <state relative-caret-position="660">
+          <caret line="38" selection-start-line="38" selection-end-line="38" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data_list.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="8" column="32" lean-forward="true" selection-start-line="8" selection-start-column="32" selection-end-line="8" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compiler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="471" column="56" lean-forward="true" selection-start-line="471" selection-start-column="56" selection-end-line="471" selection-end-column="56" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
