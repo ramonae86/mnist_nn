@@ -25,3 +25,7 @@ print(b)
 print(np.count_nonzero(a[2][1:4]))
 
 print(format(23, '0{}b'.format(10)))
+
+a = [0] * 5
+a[2] = 'd'
+print(a)

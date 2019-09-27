@@ -76,6 +76,9 @@ def nn_compile_logic(nn_input):
     # load input to layer buffer
     input_layer = nn_input
 
+    # init output_layer
+    output_layer = np.zeros(10)
+
     if len(weights) == len(bias):
         # between each pair of layers
         for nth_layer in range(len(weights)):
@@ -193,9 +196,9 @@ def biases_to_binary(biases, scale, num_bytes=4):
     # interleave array
     interleaved_array = []
     for i in range(num_bytes):
-        interleaved_bias = bin_array[0][32 - 8 * i - 8:32 - 8 * i]\
-                           + bin_array[1][32 - 8 * i - 8:32 - 8 * i]\
-                           + bin_array[2][32 - 8 * i - 8:32 - 8 * i]\
+        interleaved_bias = bin_array[0][32 - 8 * i - 8:32 - 8 * i] \
+                           + bin_array[1][32 - 8 * i - 8:32 - 8 * i] \
+                           + bin_array[2][32 - 8 * i - 8:32 - 8 * i] \
                            + bin_array[3][32 - 8 * i - 8:32 - 8 * i]
         interleaved_array.append(interleaved_bias)
     return interleaved_array
@@ -334,9 +337,9 @@ def biases_to_hex(biases, scale, num_bytes=4):
     # interleave array
     interleaved_array = []
     for i in range(num_bytes):
-        interleaved_bias = hex_array[0][8 - 2 * i - 2:8 - 2 * i]\
-                           + hex_array[1][8 - 2 * i - 2:8 - 2 * i]\
-                           + hex_array[2][8 - 2 * i - 2:8 - 2 * i]\
+        interleaved_bias = hex_array[0][8 - 2 * i - 2:8 - 2 * i] \
+                           + hex_array[1][8 - 2 * i - 2:8 - 2 * i] \
+                           + hex_array[2][8 - 2 * i - 2:8 - 2 * i] \
                            + hex_array[3][8 - 2 * i - 2:8 - 2 * i]
         interleaved_array.append(interleaved_bias)
     for i in range(len(interleaved_array)):
@@ -423,72 +426,73 @@ def nn_compile_with_inference(input_layer):
             print(num_leftover)
 
             lb_input_address = 0
-            lb_input_offset_address = 0
+            # lb_input_offset_address = 0
             # for each group of four output neurons
             for ith_chunk in range(num_chunks):
                 tmp_weights_holder = []
                 tmp_offset_address_holder = []
                 # for each input neuron(corresponds to 4 output neuron), figure out what weights and corresponding lb value should go into sparse descriptor
                 for nth_input_node in range(num_in_neu):
-                    lb_input_offset_address += 1
-                    if(np.count_nonzero(weights[nth_layer][nth_input_node][ith_chunk * 4: ith_chunk * 4 + 4]) > 0):
+                    if np.count_nonzero(weights[nth_layer][nth_input_node][ith_chunk * 4: ith_chunk * 4 + 4]) > 0:
                         tmp_weight = weights[nth_layer][nth_input_node][ith_chunk * 4: ith_chunk * 4 + 4]
                         tmp_weights_holder.append(tmp_weight)
-                        tmp_offset_address_holder.append(lb_input_offset_address)
+                        tmp_offset_address_holder.append(nth_input_node)
+                    # lb_input_offset_address += 1
 
                 # dump lb address and weight data into memory array, and adding sparse descriptor every 3 entries
                 for i in range(len(tmp_weights_holder)):
-                    if (i%3 == 0):
-                        if (len(tmp_weights_holder) - i < 3):
+                    if i % 3 == 0:
+                        if len(tmp_weights_holder) - i < 3:  # less than 3 spare connections left
                             j = i
                             tmp_address = ""
-                            while(j < len(tmp_weights_holder)):
+                            while j < len(tmp_weights_holder):
                                 tmp_address += format(lb_input_address + tmp_offset_address_holder[j], '0{}b'.format(10))
                                 j += 1
-                            tmp_address += '0000000000' * (3 - len(tmp_weights_holder) + i) + format(j-i-1, '0{}b'.format(2))
+                            tmp_address += '0000000000' * (3 - len(tmp_weights_holder) + i) + format(j - i - 1, '0{}b'.format(2))
                             array_data.append(tmp_address)
                             j = i
-                            while (j < len(tmp_weights_holder)):
+                            while j < len(tmp_weights_holder):
                                 array_data.append(line_to_binary(line=tmp_weights_holder[j], scale=weight_scale, signed=True))
                                 j += 1
-                        else: # when there are more than 3 sparse connections left, so the last
+                        else:  # when there are more than 3 sparse connections left, so the last 2 bits are 11
                             array_data.append(
                                 format(lb_input_address + tmp_offset_address_holder[i], '0{}b'.format(10))
-                                + format(lb_input_address + tmp_offset_address_holder[i+1], '0{}b'.format(10))
-                                + format(lb_input_address + tmp_offset_address_holder[i+2], '0{}b'.format(10))
+                                + format(lb_input_address + tmp_offset_address_holder[i + 1], '0{}b'.format(10))
+                                + format(lb_input_address + tmp_offset_address_holder[i + 2], '0{}b'.format(10))
                                 + '11')
                             array_data.append(line_to_binary(line=tmp_weights_holder[i], scale=weight_scale, signed=True))
-                            array_data.append(line_to_binary(line=tmp_weights_holder[i+1], scale=weight_scale, signed=True))
-                            array_data.append(line_to_binary(line=tmp_weights_holder[i+2], scale=weight_scale, signed=True))
+                            array_data.append(line_to_binary(line=tmp_weights_holder[i + 1], scale=weight_scale, signed=True))
+                            array_data.append(line_to_binary(line=tmp_weights_holder[i + 2], scale=weight_scale, signed=True))
 
                 for ith_chunk in range(num_chunks):
                     # every bias is 32-bit
                     tmp_bias = bias[nth_layer][ith_chunk * 4: ith_chunk * 4 + 4]
                     array_data += biases_to_binary(biases=tmp_bias, scale=bias_scale, num_bytes=num_bias_bytes)
 
-            if num_leftover > 0:  # in case number of neurons is not multiple of 4 in output layer
+            # in case number of neurons is not multiple of 4 in output layer
+            if num_leftover > 0:
                 tmp_weights_holder = []
                 tmp_offset_address_holder = []
                 for nth_input_node in range(num_in_neu):
-                    lb_input_offset_address += 1
-                    if(np.count_nonzero(np.append(weights[nth_layer][nth_input_node][-num_leftover:], [0] * (4 - num_leftover))) > 0):
+                    if np.count_nonzero(np.append(weights[nth_layer][nth_input_node][-num_leftover:], [0] * (4 - num_leftover))) > 0:
                         tmp_weight = np.append(weights[nth_layer][nth_input_node][-num_leftover:], [0] * (4 - num_leftover))
                         tmp_weights_holder.append(tmp_weight)
-                        tmp_offset_address_holder.append(lb_input_offset_address)
+                        tmp_offset_address_holder.append(nth_input_node)
+                    # lb_input_offset_address += 1
 
                 # dump lb address and weight data into memory array, and adding sparse descriptor every 3 entries
                 for i in range(len(tmp_weights_holder)):
-                    if (i % 3 == 0):
-                        if (len(tmp_weights_holder) - i < 3):
+                    if i % 3 == 0:
+                        if len(tmp_weights_holder) - i < 3:
                             j = i
                             tmp_address = ""
-                            while (j < len(tmp_weights_holder)):
+                            while j < len(tmp_weights_holder):
                                 tmp_address += format(lb_input_address + tmp_offset_address_holder[j], '0{}b'.format(10))
                                 j += 1
                             tmp_address += '0000000000' * (3 - len(tmp_weights_holder) + i) + format(j - i - 1, '0{}b'.format(2))
                             array_data.append(tmp_address)
                             j = i
-                            while (j < len(tmp_weights_holder)):
+                            while j < len(tmp_weights_holder):
                                 array_data.append(line_to_binary(line=tmp_weights_holder[j], scale=weight_scale, signed=True))
                                 j += 1
                         else:  # when there are more than 3 sparse connections left, so the last
@@ -503,11 +507,6 @@ def nn_compile_with_inference(input_layer):
 
                 tmp_bias = bias[nth_layer][-num_leftover:]
                 array_data += biases_to_binary(biases=tmp_bias, scale=bias_scale, num_bytes=num_bias_bytes)
-
-
-
-
-
 
     with open('data_list.txt', 'w') as f:
         for item in array_data:
@@ -527,6 +526,7 @@ def nn_compile_with_spi(input_layer):
     num_bias_bytes = 2
 
     array_data = []
+    offset_address_holder = []
 
     for nth_layer in range(len(weights)):
         num_in_neu = weights[nth_layer].shape[0]
@@ -536,28 +536,56 @@ def nn_compile_with_spi(input_layer):
         print(num_chunks)
         print(num_leftover)
 
-        # weights and bias data
-        for ith_chunk in range(num_chunks):
-            for nth_input_node in range(num_in_neu):
-                # every 4 weights constitute one line
-                tmp_weight = weights[nth_layer][nth_input_node][ith_chunk * 4: ith_chunk * 4 + 4]
-                # print(tmp_weight)
-                array_data.append(line_to_hex(line=tmp_weight, scale=weight_scale, signed=True))
-            # every bias is 32-bit
-            tmp_bias = bias[nth_layer][ith_chunk * 4: ith_chunk * 4 + 4]
-            # print(tmp_bias)
-            array_data += biases_to_hex(biases=tmp_bias, scale=bias_scale, num_bytes=num_bias_bytes)
+        num_nonzero_edges = np.count_nonzero(weights[nth_layer])
+        sparse = (num_nonzero_edges / weights[nth_layer].size) < (8 / 19)
 
-        if num_leftover > 0:  # in case number of neurons is not multiple of 4 in output layer
-            for nth_input_node in range(num_in_neu):
-                # leftover weights appended with padding 0s to make 32-bit line
-                tmp_weight = np.append(weights[nth_layer][nth_input_node][-num_leftover:], [0] * (4 - num_leftover))
-                # print(tmp_weight)
-                array_data.append(line_to_hex(line=tmp_weight, scale=weight_scale, signed=True))
+        # weights and bias data
+        if not sparse:
+            for ith_chunk in range(num_chunks):
+                for nth_input_node in range(num_in_neu):
+                    # every 4 weights constitute one line
+                    tmp_weight = weights[nth_layer][nth_input_node][ith_chunk * 4: ith_chunk * 4 + 4]
+                    # print(tmp_weight)
+                    array_data.append(line_to_hex(line=tmp_weight, scale=weight_scale, signed=True))
                 # every bias is 32-bit
-            tmp_bias = bias[nth_layer][-num_leftover:]
-            # print(tmp_bias)
-            array_data += biases_to_hex(biases=tmp_bias, scale=bias_scale, num_bytes=num_bias_bytes)
+                tmp_bias = bias[nth_layer][ith_chunk * 4: ith_chunk * 4 + 4]
+                # print(tmp_bias)
+                array_data += biases_to_hex(biases=tmp_bias, scale=bias_scale, num_bytes=num_bias_bytes)
+
+            if num_leftover > 0:  # in case number of neurons is not multiple of 4 in output layer
+                for nth_input_node in range(num_in_neu):
+                    # leftover weights appended with padding 0s to make 32-bit line
+                    tmp_weight = np.append(weights[nth_layer][nth_input_node][-num_leftover:], [0] * (4 - num_leftover))
+                    # print(tmp_weight)
+                    array_data.append(line_to_hex(line=tmp_weight, scale=weight_scale, signed=True))
+                    # every bias is 32-bit
+                tmp_bias = bias[nth_layer][-num_leftover:]
+                # print(tmp_bias)
+                array_data += biases_to_hex(biases=tmp_bias, scale=bias_scale, num_bytes=num_bias_bytes)
+        else: # layer is sparse
+            for ith_chunk in range(num_chunks):
+                tmp_offset_address_holder = []
+                for nth_input_node in range(num_in_neu):
+                    if np.count_nonzero(weights[nth_layer][nth_input_node][ith_chunk * 4: ith_chunk * 4 + 4]) > 0:
+                        tmp_weight = weights[nth_layer][nth_input_node][ith_chunk * 4: ith_chunk * 4 + 4]
+                        array_data.append(line_to_hex(line=tmp_weight, scale=weight_scale, signed=True))
+                        tmp_offset_address_holder.append(nth_input_node)
+                tmp_bias = bias[nth_layer][ith_chunk * 4: ith_chunk * 4 + 4]
+                array_data += biases_to_hex(biases=tmp_bias, scale=bias_scale, num_bytes=num_bias_bytes)
+                offset_address_holder.append(tmp_offset_address_holder)
+
+            if num_leftover > 0:  # in case number of neurons is not multiple of 4 in output layer
+                tmp_offset_address_holder = []
+                for nth_input_node in range(num_in_neu):
+                    if np.count_nonzero(np.append(weights[nth_layer][nth_input_node][-num_leftover:], [0] * (4 - num_leftover))) > 0:
+                        tmp_weight = np.append(weights[nth_layer][nth_input_node][-num_leftover:], [0] * (4 - num_leftover))
+                        array_data.append(line_to_hex(line=tmp_weight, scale=weight_scale, signed=True))
+                        tmp_offset_address_holder.append(nth_input_node)
+                tmp_bias = bias[nth_layer][-num_leftover:]
+                array_data += biases_to_hex(biases=tmp_bias, scale=bias_scale, num_bytes=num_bias_bytes)
+                offset_address_holder.append(tmp_offset_address_holder)
+
+
 
     # print(array_data)
     with open('PI_BLOCK_512.list', 'w') as data_file:
@@ -595,6 +623,8 @@ def nn_compile_with_spi(input_layer):
         for i in range(len(array_data)):
             testbench.write("TASK_PP(16'h{},4);\n".format(format(memory_start_address + i, '04x').upper()))
 
+        offset_address_first_level_index = 0
+
         array_address = 0
         for nth_layer in range(len(weights)):
             if nth_layer % 2 == 1:
@@ -609,29 +639,64 @@ def nn_compile_with_spi(input_layer):
             num_leftover = num_out_neu % 4
             lb_output_current_address = lb_output_start_address
 
-            for ith_chunk in range(num_chunks):
-                lb_input_current_address = lb_input_start_address
-                for nth_input_node in range(num_in_neu):
-                    testbench.write("TASK_MACCYC(0,32'h{}{});\n".format(format(array_address, '04x').upper(), format(lb_input_current_address, '04x').upper()))
-                    array_address += 1
-                    lb_input_current_address += 1
-                testbench.write("TASK_BIASBUF({},16'h{});\n".format(num_bias_bytes, format(array_address, '04x').upper()))
-                array_address += num_bias_bytes
-                for i in range(4):
-                    testbench.write("TASK_NEURONACT(32'h{}{});\n".format(format(i + 1, '04x').upper(), format(lb_output_current_address, '04x').upper()))
-                    lb_output_current_address += 1
+            num_nonzero_edges = np.count_nonzero(weights[nth_layer])
+            sparse = (num_nonzero_edges / weights[nth_layer].size) < (8 / 19)
 
-            if num_leftover > 0:
-                lb_input_current_address = lb_input_start_address
-                for nth_input_node in range(num_in_neu):
-                    testbench.write("TASK_MACCYC(0,32'h{}{});\n".format(format(array_address, '04x').upper(), format(lb_input_current_address, '04x').upper()))
-                    array_address += 1
-                    lb_input_current_address += 1
-                testbench.write("TASK_BIASBUF({},16'h{});\n".format(num_bias_bytes, format(array_address, '04x').upper()))
-                array_address += num_bias_bytes
-                for i in range(num_leftover):
-                    testbench.write("TASK_NEURONACT(32'h{}{});\n".format(format(i + 1, '04x').upper(), format(lb_output_current_address, '04x').upper()))
-                    lb_output_current_address += 1
+
+            if not sparse:
+                for ith_chunk in range(num_chunks):
+                    lb_input_current_address = lb_input_start_address
+                    for nth_input_node in range(num_in_neu):
+                        testbench.write("TASK_MACCYC(0,32'h{}{});\n".format(format(array_address, '04x').upper(), format(lb_input_current_address, '04x').upper()))
+                        array_address += 1
+                        lb_input_current_address += 1
+                    testbench.write("TASK_BIASBUF({},16'h{});\n".format(num_bias_bytes, format(array_address, '04x').upper()))
+                    array_address += num_bias_bytes
+                    for i in range(4):
+                        testbench.write("TASK_NEURONACT(32'h{}{});\n".format(format(i + 1, '04x').upper(), format(lb_output_current_address, '04x').upper()))
+                        lb_output_current_address += 1
+
+                if num_leftover > 0:
+                    lb_input_current_address = lb_input_start_address
+                    for nth_input_node in range(num_in_neu):
+                        testbench.write("TASK_MACCYC(0,32'h{}{});\n".format(format(array_address, '04x').upper(), format(lb_input_current_address, '04x').upper()))
+                        array_address += 1
+                        lb_input_current_address += 1
+                    testbench.write("TASK_BIASBUF({},16'h{});\n".format(num_bias_bytes, format(array_address, '04x').upper()))
+                    array_address += num_bias_bytes
+                    for i in range(num_leftover):
+                        testbench.write("TASK_NEURONACT(32'h{}{});\n".format(format(i + 1, '04x').upper(), format(lb_output_current_address, '04x').upper()))
+                        lb_output_current_address += 1
+            else:
+                for ith_chunk in range(num_chunks):
+                    sparse_input_neuron_index = 0
+                    for nth_input_node in range(num_in_neu):
+                        if np.count_nonzero(weights[nth_layer][nth_input_node][ith_chunk * 4: ith_chunk * 4 + 4]) > 0:
+                            testbench.write("TASK_MACCYC(0,32'h{}{});\n".format(
+                                format(array_address, '04x').upper(),
+                                format(lb_input_start_address + sparse_input_neuron_index, '04x').upper()))
+                            array_address += 1
+                        sparse_input_neuron_index += 1
+                    testbench.write("TASK_BIASBUF({},16'h{});\n".format(num_bias_bytes, format(array_address, '04x').upper()))
+                    array_address += num_bias_bytes
+                    for i in range(4):
+                        testbench.write("TASK_NEURONACT(32'h{}{});\n".format(format(i + 1, '04x').upper(), format(lb_output_current_address, '04x').upper()))
+                        lb_output_current_address += 1
+
+                if num_leftover > 0:
+                    sparse_input_neuron_index = 0
+                    for nth_input_node in range(num_in_neu):
+                        if np.count_nonzero(np.append(weights[nth_layer][nth_input_node][-num_leftover:], [0] * (4 - num_leftover))) > 0:
+                            testbench.write("TASK_MACCYC(0,32'h{}{});\n".format(
+                                format(array_address, '04x').upper(),
+                                format(lb_input_start_address + sparse_input_neuron_index, '04x').upper()))
+                            array_address += 1
+                        sparse_input_neuron_index += 1
+                    testbench.write("TASK_BIASBUF({},16'h{});\n".format(num_bias_bytes, format(array_address, '04x').upper()))
+                    array_address += num_bias_bytes
+                    for i in range(num_leftover):
+                        testbench.write("TASK_NEURONACT(32'h{}{});\n".format(format(i + 1, '04x').upper(), format(lb_output_current_address, '04x').upper()))
+                        lb_output_current_address += 1
 
 
 if __name__ == '__main__':
@@ -647,14 +712,15 @@ if __name__ == '__main__':
 
     np.save("L1Weights", np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]))
     # np.save("L2Weights", np.array([[17, 18, 19, 20, 21], [22, 23, 24, 25, 26], [27, 28, 29, 30, 31], [32, 33, 34, 35, 36]]))
-    np.save("L2Weights", np.array([[17, 0, 0, 0, 0], [0, 0, 0, 0, 26], [0, 0, 29, 0, 0], [0, 33, 0, 0, 0]]))
+    np.save("L2Weights", np.array([[17, 0, 0, 0, 0], [0, 0, 0, 0, 26], [7, 0, 29, 0, 0], [0, 33, 0, 0, 0]]))
     np.save("L3Weights", np.array([[37, 38, 39], [40, 41, 42], [43, 44, 45], [46, 47, 48], [49, 50, 51]]))
     np.save("outWeights", np.array([[52, 53], [54, 55], [56, 57]]))
     np.save("L1Bias", np.array([128, 129, 130, 131]))
     np.save("L2Bias", np.array([132, 133, 134, 135, 136]))
     np.save("L3Bias", np.array([137, 138, 139]))
     np.save("outBias", np.array([140, 141]))
-    nn_compile_with_inference(np.array([1, 2, 3, 4]))
+
+    nn_compile_with_spi(np.array([1, 2, 3, 4]))
 
     # for i in range(1):
     #     predict = nn_compile_with_spi(X_train[i])
