@@ -720,7 +720,7 @@ if __name__ == '__main__':
     np.save("L3Bias", np.array([137, 138, 139]))
     np.save("outBias", np.array([140, 141]))
 
-    nn_compile_with_spi(np.array([1, 2, 3, 4]))
+    nn_compile_with_inference(np.array([1, 2, 3, 4]))
 
     # for i in range(1):
     #     predict = nn_compile_with_spi(X_train[i])
