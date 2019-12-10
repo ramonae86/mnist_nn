@@ -464,10 +464,10 @@ def nn_compile_with_inference(input_layer):
                             array_data.append(line_to_binary(line=tmp_weights_holder[i + 1], scale=weight_scale, signed=True))
                             array_data.append(line_to_binary(line=tmp_weights_holder[i + 2], scale=weight_scale, signed=True))
 
-                for ith_chunk in range(num_chunks):
-                    # every bias is 32-bit
-                    tmp_bias = bias[nth_layer][ith_chunk * 4: ith_chunk * 4 + 4]
-                    array_data += biases_to_binary(biases=tmp_bias, scale=bias_scale, num_bytes=num_bias_bytes)
+            for ith_chunk in range(num_chunks):
+                # every bias is 32-bit
+                tmp_bias = bias[nth_layer][ith_chunk * 4: ith_chunk * 4 + 4]
+                array_data += biases_to_binary(biases=tmp_bias, scale=bias_scale, num_bytes=num_bias_bytes)
 
             # in case number of neurons is not multiple of 4 in output layer
             if num_leftover > 0:

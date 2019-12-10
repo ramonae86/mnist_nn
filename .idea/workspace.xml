@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="848f2683-63d2-4ce0-8ecf-2d7a8c8813b0" name="Default Changelist" comment="add stuff to testbench.v&#10;bias read address issue revealed&#10;address is not enough for current NN">
-      <change afterPath="$PROJECT_DIR$/mnist_mobilenetv1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mnist_mobilenetv2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mobilenet_v1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/multichip_compiler.py" afterDir="false" />
+    <list default="true" id="848f2683-63d2-4ce0-8ecf-2d7a8c8813b0" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/tierson.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/compiler.py" beforeDir="false" afterPath="$PROJECT_DIR$/compiler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/multichip_compiler.py" beforeDir="false" afterPath="$PROJECT_DIR$/multichip_compiler.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -20,8 +19,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/compiler.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1740">
-              <caret line="519" column="12" lean-forward="true" selection-start-line="519" selection-start-column="12" selection-end-line="519" selection-end-column="12" />
+            <state relative-caret-position="343">
+              <caret line="472" column="19" selection-start-line="472" selection-start-column="19" selection-end-line="472" selection-end-column="19" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -31,14 +30,30 @@
       </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/multichip_compiler.py">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="340">
+              <caret line="47" column="19" lean-forward="true" selection-start-line="47" selection-start-column="19" selection-end-line="47" selection-end-column="19" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/data_list.txt">
+        <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
-              <caret line="10" column="26" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
+            <state relative-caret-position="340">
+              <caret line="17" selection-start-line="17" selection-end-line="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tierson.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="440">
+              <caret line="22" selection-start-line="22" selection-end-line="22" />
             </state>
           </provider>
         </entry>
@@ -96,8 +111,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="6" selection-start-line="6" selection-end-line="6" />
+            <state relative-caret-position="200">
+              <caret line="10" column="40" lean-forward="true" selection-start-line="10" selection-start-column="40" selection-end-line="10" selection-end-column="40" />
             </state>
           </provider>
         </entry>
@@ -120,6 +135,9 @@
       <find>line_to_binary</find>
       <find>result</find>
       <find>input</find>
+      <find>offset_address_holder</find>
+      <find>(input_layer_weight.shape)[0]</find>
+      <find>(output_layer_weight.shape)[0]</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -133,11 +151,12 @@
         <option value="$PROJECT_DIR$/playWithSentdexWeightsBias.py" />
         <option value="$PROJECT_DIR$/sentdexTutorial.py" />
         <option value="$PROJECT_DIR$/data_list.txt" />
-        <option value="$PROJECT_DIR$/compiler.py" />
         <option value="$PROJECT_DIR$/mobilenet_v1.py" />
         <option value="$PROJECT_DIR$/mnist_mobilenetv1.py" />
-        <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/mnist_mobilenetv2.py" />
+        <option value="$PROJECT_DIR$/compiler.py" />
+        <option value="$PROJECT_DIR$/tierson.py" />
+        <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/multichip_compiler.py" />
       </list>
     </option>
@@ -189,7 +208,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.test">
+  <component name="RunManager" selected="Python.multichip_compiler">
     <configuration name="compiler" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="mnist_nn" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -232,7 +251,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="playWithSentdexWeightsBias" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="multichip_compiler" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="mnist_nn" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -244,7 +263,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/playWithSentdexWeightsBias.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/multichip_compiler.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -297,11 +316,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.multichip_compiler" />
         <item itemvalue="Python.test" />
         <item itemvalue="Python.mnist_mobilenetv1" />
         <item itemvalue="Python.sentdexTutorial" />
         <item itemvalue="Python.compiler" />
-        <item itemvalue="Python.playWithSentdexWeightsBias" />
       </list>
     </recent_temporary>
   </component>
@@ -323,7 +342,14 @@
       <option name="project" value="LOCAL" />
       <updated>1566593377566</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="added mobilenetv1 and v2 experiments, not important.&#10;&#10;Initialized multi chip compiler">
+      <created>1575907075614</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1575907075615</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TodoView">
@@ -339,13 +365,13 @@
     <frame x="1912" y="-369" width="2576" height="1416" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.107171" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.107171" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32969603" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.31800467" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.3990647" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.3990647" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32969603" />
@@ -357,6 +383,25 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
+    <layout-to-restore>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.107171" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32969603" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.31800467" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3990647" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32969603" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.3289166" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32936078" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Python Console" order="10" weight="0.32936078" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout-to-restore>
   </component>
   <component name="Vcs.Log.History.Properties">
     <option name="COLUMN_ORDER">
@@ -410,7 +455,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="add stuff to testbench.v&#10;bias read address issue revealed&#10;address is not enough for current NN" />
-    <option name="LAST_COMMIT_MESSAGE" value="add stuff to testbench.v&#10;bias read address issue revealed&#10;address is not enough for current NN" />
+    <MESSAGE value="added mobilenetv1 and v2 experiments, not important.&#10;&#10;Initialized multi chip compiler" />
+    <option name="LAST_COMMIT_MESSAGE" value="added mobilenetv1 and v2 experiments, not important.&#10;&#10;Initialized multi chip compiler" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
@@ -518,13 +564,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="6" selection-start-line="6" selection-end-line="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/PI_BLOCK_512.list">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
@@ -541,16 +580,44 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/compiler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1740">
-          <caret line="519" column="12" lean-forward="true" selection-start-line="519" selection-start-column="12" selection-end-line="519" selection-end-column="12" />
+        <state relative-caret-position="343">
+          <caret line="472" column="19" selection-start-line="472" selection-start-column="19" selection-end-line="472" selection-end-column="19" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/tierson.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="440">
+          <caret line="22" selection-start-line="22" selection-end-line="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="10" column="40" lean-forward="true" selection-start-line="10" selection-start-column="40" selection-end-line="10" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/multichip_compiler.py">
-      <provider selected="true" editor-type-id="text-editor" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="47" column="19" lean-forward="true" selection-start-line="47" selection-start-column="19" selection-end-line="47" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
     </entry>
   </component>
 </project>
