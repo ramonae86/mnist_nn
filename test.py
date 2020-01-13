@@ -1,3 +1,4 @@
+
 def near_even_divide(dividend, divisor):
     residual= dividend
     floor_quotient = dividend//divisor
@@ -12,7 +13,6 @@ def near_even_divide(dividend, divisor):
     return result
 
 
-for i in range(1,35):
-    listA = near_even_divide(dividend=335, divisor=i)
-    print(listA)
-    print(sum(listA))
+a = [1, 2, 3, 4]
+del a[2:]
+print(a)
