@@ -2,34 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="848f2683-63d2-4ce0-8ecf-2d7a8c8813b0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HvassTutorials.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/L1Bias.npy" beforeDir="false" afterPath="$PROJECT_DIR$/L1Bias.npy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/L1Weights.npy" beforeDir="false" afterPath="$PROJECT_DIR$/L1Weights.npy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/L2Bias.npy" beforeDir="false" afterPath="$PROJECT_DIR$/L2Bias.npy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/L2Weights.npy" beforeDir="false" afterPath="$PROJECT_DIR$/L2Weights.npy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/L3Bias.npy" beforeDir="false" afterPath="$PROJECT_DIR$/L3Bias.npy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/L3Weights.npy" beforeDir="false" afterPath="$PROJECT_DIR$/L3Weights.npy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RUNP.vh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/distributions.png" beforeDir="false" afterPath="$PROJECT_DIR$/distributions.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/edurekaTut.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fashionClassificationTF.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mem.v" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/memlatch.v" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/memrelease.v" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mnist_mobilenetv1.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mnist_mobilenetv2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilenet_v1.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/objectdetection.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/officialTFMOOC.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/outBias.npy" beforeDir="false" afterPath="$PROJECT_DIR$/outBias.npy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/outWeights.npy" beforeDir="false" afterPath="$PROJECT_DIR$/outWeights.npy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plainInference.py" beforeDir="false" afterPath="$PROJECT_DIR$/plainInference.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/playWithSentdexWeightsBias.py" beforeDir="false" afterPath="$PROJECT_DIR$/playWithSentdexWeightsBias.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/saved_models/model.ckpt.data-00000-of-00001" beforeDir="false" afterPath="$PROJECT_DIR$/saved_models/model.ckpt.data-00000-of-00001" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/saved_models/model.ckpt.index" beforeDir="false" afterPath="$PROJECT_DIR$/saved_models/model.ckpt.index" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sherryMoore.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tb_spi_task_check.v" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/log.txt" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -96,8 +69,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/relu_scale_vs_accuracy.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
-              <caret line="10" column="28" lean-forward="true" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
+            <state relative-caret-position="220">
+              <caret line="11" column="38" lean-forward="true" selection-start-line="11" selection-start-column="38" selection-end-line="11" selection-end-column="38" />
               <folding>
                 <element signature="e#0#42#0" expanded="true" />
               </folding>
@@ -673,8 +646,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/relu_scale_vs_accuracy.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="10" column="28" lean-forward="true" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
+        <state relative-caret-position="220">
+          <caret line="11" column="38" lean-forward="true" selection-start-line="11" selection-start-column="38" selection-end-line="11" selection-end-column="38" />
           <folding>
             <element signature="e#0#42#0" expanded="true" />
           </folding>
