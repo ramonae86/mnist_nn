@@ -222,4 +222,4 @@ def run(AF='relu', relu_scale=1, plot=True):
 
 
 if __name__ == "__main__":
-    run(AF = 'relu', relu_scale = 100)
+    run(AF = 'sigmoid', relu_scale = 100)

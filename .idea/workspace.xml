@@ -2,12 +2,34 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="848f2683-63d2-4ce0-8ecf-2d7a8c8813b0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/Ruoyu.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/multichip_compiler.py" beforeDir="false" afterPath="$PROJECT_DIR$/multichip_compiler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tierson.py" beforeDir="false" afterPath="$PROJECT_DIR$/tierson.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HvassTutorials.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/L1Bias.npy" beforeDir="false" afterPath="$PROJECT_DIR$/L1Bias.npy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/L1Weights.npy" beforeDir="false" afterPath="$PROJECT_DIR$/L1Weights.npy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/L2Bias.npy" beforeDir="false" afterPath="$PROJECT_DIR$/L2Bias.npy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/L2Weights.npy" beforeDir="false" afterPath="$PROJECT_DIR$/L2Weights.npy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/L3Bias.npy" beforeDir="false" afterPath="$PROJECT_DIR$/L3Bias.npy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/L3Weights.npy" beforeDir="false" afterPath="$PROJECT_DIR$/L3Weights.npy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RUNP.vh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/distributions.png" beforeDir="false" afterPath="$PROJECT_DIR$/distributions.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/edurekaTut.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fashionClassificationTF.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mem.v" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/memlatch.v" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/memrelease.v" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mnist_mobilenetv1.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mnist_mobilenetv2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobilenet_v1.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/objectdetection.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/officialTFMOOC.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/outBias.npy" beforeDir="false" afterPath="$PROJECT_DIR$/outBias.npy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outWeights.npy" beforeDir="false" afterPath="$PROJECT_DIR$/outWeights.npy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plainInference.py" beforeDir="false" afterPath="$PROJECT_DIR$/plainInference.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/playWithSentdexWeightsBias.py" beforeDir="false" afterPath="$PROJECT_DIR$/playWithSentdexWeightsBias.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/saved_models/model.ckpt.data-00000-of-00001" beforeDir="false" afterPath="$PROJECT_DIR$/saved_models/model.ckpt.data-00000-of-00001" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/saved_models/model.ckpt.index" beforeDir="false" afterPath="$PROJECT_DIR$/saved_models/model.ckpt.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sherryMoore.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tb_spi_task_check.v" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,25 +39,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/compiler.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="629" column="34" lean-forward="true" selection-start-line="629" selection-start-column="34" selection-end-line="629" selection-end-column="34" />
-              <folding>
-                <element signature="e#0#18#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/multichip_compiler.py">
+        <entry file="file://$PROJECT_DIR$/sentdexTutorial.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1380">
-              <caret line="69" column="30" selection-start-line="69" selection-start-column="30" selection-end-line="69" selection-end-column="30" />
+            <state relative-caret-position="1535">
+              <caret line="112" column="58" selection-start-line="112" selection-start-column="58" selection-end-line="112" selection-end-column="58" />
               <folding>
-                <element signature="e#0#18#0" expanded="true" />
+                <element signature="e#0#23#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -44,8 +54,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/playWithSentdexWeightsBias.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="835">
-              <caret line="129" column="38" selection-start-line="129" selection-start-column="38" selection-end-line="129" selection-end-column="38" />
+            <state relative-caret-position="467">
+              <caret line="213" column="39" lean-forward="true" selection-start-line="213" selection-start-column="39" selection-end-line="213" selection-end-column="39" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/plainInference.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="567">
+              <caret line="135" column="35" lean-forward="true" selection-start-line="135" selection-start-column="35" selection-end-line="135" selection-end-column="35" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -63,15 +85,6 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/testbench.vh">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="4" column="19" lean-forward="true" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PI_BLOCK_512.list">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="300">
@@ -80,33 +93,13 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/genLoadMem.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="460">
-              <caret line="23" column="17" selection-start-line="23" selection-start-column="17" selection-end-line="23" selection-end-column="17" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/relu_scale_vs_accuracy.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="200">
+              <caret line="10" column="28" lean-forward="true" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
               <folding>
                 <element signature="e#0#42#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/util.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="440">
-              <caret line="24" column="30" selection-start-line="24" selection-start-column="30" selection-end-line="24" selection-end-column="30" />
-              <folding>
-                <element signature="e#0#23#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -154,7 +147,6 @@
       <list>
         <option value="$PROJECT_DIR$/genLoadMem.py" />
         <option value="$PROJECT_DIR$/util.py" />
-        <option value="$PROJECT_DIR$/playWithSentdexWeightsBias.py" />
         <option value="$PROJECT_DIR$/sentdexTutorial.py" />
         <option value="$PROJECT_DIR$/data_list.txt" />
         <option value="$PROJECT_DIR$/mobilenet_v1.py" />
@@ -164,12 +156,14 @@
         <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/multichip_compiler.py" />
         <option value="$PROJECT_DIR$/tierson.py" />
+        <option value="$PROJECT_DIR$/playWithSentdexWeightsBias.py" />
+        <option value="$PROJECT_DIR$/plainInference.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
+    <option name="x" value="2087" />
+    <option name="y" value="-375" />
     <option name="width" value="1936" />
     <option name="height" value="1056" />
   </component>
@@ -200,7 +194,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="Errors" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -214,49 +208,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.multichip_compiler">
-    <configuration name="compiler" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="mnist_nn" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/compiler.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="mnist_mobilenetv1" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="mnist_nn" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mnist_mobilenetv1.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python.plainInference">
     <configuration name="multichip_compiler" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="mnist_nn" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -270,6 +222,48 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/multichip_compiler.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="plainInference" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="mnist_nn" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/plainInference.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="playWithSentdexWeightsBias" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="mnist_nn" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/playWithSentdexWeightsBias.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -322,11 +316,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.plainInference" />
+        <item itemvalue="Python.playWithSentdexWeightsBias" />
+        <item itemvalue="Python.sentdexTutorial" />
         <item itemvalue="Python.multichip_compiler" />
         <item itemvalue="Python.test" />
-        <item itemvalue="Python.mnist_mobilenetv1" />
-        <item itemvalue="Python.sentdexTutorial" />
-        <item itemvalue="Python.compiler" />
       </list>
     </recent_temporary>
   </component>
@@ -368,14 +362,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="1912" y="-369" width="2576" height="1416" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14330874" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.107171" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32969603" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.31800467" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.31800467" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3990647" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -474,45 +469,12 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/sentdexTutorial16.py" />
     <entry file="file://$PROJECT_DIR$/testbench.v" />
-    <entry file="file://$PROJECT_DIR$/plainInference.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="21" column="27" selection-start-line="21" selection-start-column="27" selection-end-line="21" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mem.v">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sentdexTutorial.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2140">
-          <caret line="112" column="58" selection-start-line="112" selection-start-column="58" selection-end-line="112" selection-end-column="58" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mnist_mobilenetv1.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="760">
           <caret line="44" selection-start-line="44" selection-end-line="44" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobilenet_v1.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1240">
-          <caret line="62" selection-start-line="62" selection-end-line="62" />
-          <folding>
-            <element signature="e#6392#6430#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -541,11 +503,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/verilog.v">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-7800" />
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/codecs.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="241">
@@ -553,19 +510,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/compiler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="682">
+          <caret line="455" column="38" selection-start-line="455" selection-start-column="38" selection-end-line="455" selection-end-column="38" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/multichip_compiler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1320">
+          <caret line="69" column="30" selection-start-line="69" selection-start-column="30" selection-end-line="69" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/genLoadMem.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="460">
           <caret line="23" column="17" selection-start-line="23" selection-start-column="17" selection-end-line="23" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/relu_scale_vs_accuracy.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#42#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -586,37 +554,54 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/testbench.vh">
+    <entry file="file://$PROJECT_DIR$/sentdexTutorial.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="4" column="19" lean-forward="true" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
+        <state relative-caret-position="1535">
+          <caret line="112" column="58" selection-start-line="112" selection-start-column="58" selection-end-line="112" selection-end-column="58" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+          </folding>
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/officialTFMOOC.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-893">
+          <folding>
+            <element signature="e#109#146#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobilenet_v1.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1240">
+          <caret line="62" selection-start-line="62" selection-end-line="62" />
+          <folding>
+            <element signature="e#6392#6430#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/objectdetection.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1273" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/playWithSentdexWeightsBias.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="835">
-          <caret line="129" column="38" selection-start-line="129" selection-start-column="38" selection-end-line="129" selection-end-column="38" />
+        <state relative-caret-position="467">
+          <caret line="213" column="39" lean-forward="true" selection-start-line="213" selection-start-column="39" selection-end-line="213" selection-end-column="39" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tierson.py">
+    <entry file="file://$PROJECT_DIR$/testbench.vh">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="12" column="11" selection-start-line="12" selection-start-column="11" selection-end-line="12" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/multichip_compiler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1380">
-          <caret line="69" column="30" selection-start-line="69" selection-start-column="30" selection-end-line="69" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="80">
+          <caret line="4" column="19" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
         </state>
       </provider>
     </entry>
@@ -627,12 +612,71 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/compiler.py">
+    <entry file="file://$PROJECT_DIR$/verilog.v">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="629" column="34" lean-forward="true" selection-start-line="629" selection-start-column="34" selection-end-line="629" selection-end-column="34" />
+        <state relative-caret-position="100">
+          <caret line="5" column="73" selection-start-line="5" selection-start-column="73" selection-end-line="5" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plainInference.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="567">
+          <caret line="135" column="35" lean-forward="true" selection-start-line="135" selection-start-column="35" selection-end-line="135" selection-end-column="35" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scale_vs_accuracy.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tierson.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="12" column="11" selection-start-line="12" selection-start-column="11" selection-end-line="12" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RUNP.vh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2431" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/memlatch.v">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/memrelease.v">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mem.v">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/binaryTensorFlow.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/binary_layer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#15#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/relu_scale_vs_accuracy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="10" column="28" lean-forward="true" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#42#0" expanded="true" />
           </folding>
         </state>
       </provider>

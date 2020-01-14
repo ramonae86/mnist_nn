@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import tensorflow as tf
 # from tensorflow.examples.tutorials.mnist import input_data
-from PIL import Image
+
 from LUT_NN import LUT
 import sys
 
