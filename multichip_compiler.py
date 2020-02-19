@@ -1,5 +1,6 @@
 import numpy as np
 import math
+import tensorflow as tf
 from compiler import *
 from tierson import Tierson
 
@@ -39,7 +40,6 @@ class MultichipTierson:
                     num_chips.append(math.ceil(num_output/(self.LB_SIZE-num_input)))
             else:
                 num_chips.append(1)
-
         return num_chips
 
     def init_chips(self, layer_num_chips, layer_input, layer_weights, layer_bias):
@@ -74,15 +74,15 @@ class MultichipTierson:
             output = np.concatenate((output, chip.output))
         return output
 
-    def multichip_compile(self, input_layer):
+    def multichip_compile(self, nn_input):
         num_chips_list = self.multichip_parse()
         print(num_chips_list)
-        input = input_layer
+        layer_input = nn_input
         for ith_layer, num_chips in enumerate(num_chips_list):
             print("-------------------------  layer {}  -------------------------".format(ith_layer))
-            self.init_chips(layer_num_chips=num_chips, layer_input=input, layer_weights=self.weights[ith_layer], layer_bias=self.bias[ith_layer])
+            self.init_chips(layer_num_chips=num_chips, layer_input=layer_input, layer_weights=self.weights[ith_layer], layer_bias=self.bias[ith_layer])
             self.layer_MAC()
-            input = self.two_way_lb_copy()
+            layer_input = self.two_way_lb_copy()
             self.chips_list = []
 
 
@@ -97,5 +97,5 @@ if __name__ == '__main__':
 
     tierson_array = MultichipTierson()
 
-    tierson_array.multichip_compile(input_layer=X_train[0])
+    tierson_array.multichip_compile(nn_input=X_train[0])
     print("yes")

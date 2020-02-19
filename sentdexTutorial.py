@@ -29,7 +29,7 @@ X_test = X_test.reshape(num_test_samples, 784)
 
 n_node_hl1 = 512
 n_node_hl2 = 128
-n_node_hl3 = 64
+n_node_hl3 = 32
 
 n_classes = 10
 batch_size = 100

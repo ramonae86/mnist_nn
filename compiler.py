@@ -20,7 +20,55 @@ import tensorflow as tf
 
 def sigmoid(x):
     y = 1 / (1 + np.exp(-x))
-    return y.round(decimals=2)
+    # return y.round(decimals=2)
+    return y
+
+
+def binarySearch(aList, target, start, end):
+    #aList = sorted(aList)
+
+    if target >= aList[len(aList)-1]:
+        return len(aList)
+    if end-start+1 <= 0:
+        return 0
+    else:
+        midpoint = start + (end - start) // 2
+        if midpoint <= end and aList[midpoint-1] <= target < aList[midpoint]:
+            return midpoint
+        else:
+            if target < aList[midpoint]:
+                return binarySearch(aList, target, start, midpoint - 1)
+            else:
+                return binarySearch(aList, target, midpoint + 1, end)
+
+
+def LUTsigmoid(x):
+    look_up_table = [-4590, -4394, -4207, -4028, -3856, -3692, -3535, -3384, -3240, -3102, -2969, -2843
+        , -2721, -2605, -2494, -2388, -2286, -2188, -2094, -2005, -1919, -1837, -1758, -1683
+        , -1611, -1542, -1475, -1412, -1351, -1293, -1238, -1185, -1134, -1085, -1038, -993
+        , -950, -909, -870, -832, -796, -762, -728, -697, -666, -637, -610, -583
+        , -558, -533, -510, -487, -466, -445, -426, -407, -389, -372, -355, -339
+        , -324, -309, -296, -282, -270, -257, -246, -234, -224, -213, -204, -194
+        , -185, -177, -168, -160, -153, -145, -139, -132, -126, -119, -114, -108
+        , -103, -97, -93, -88, -83, -79, -75, -71, -67, -63, -60, -57
+        , -54, -50, -48, -45, -42, -39, -37, -35, -32, -30, -28, -26
+        , -24, -22, -21, -19, -18, -16, -15, -13, -12, -10, -9, -8
+        , -7, -6, -5, -4, -3, -2, -1, 0, 1, 2
+        , 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 15, 16
+        , 18, 19, 21, 22, 24, 26, 28, 30, 32, 35, 37, 39
+        , 42, 45, 48, 50, 54, 57, 60, 63, 67, 71, 75, 79
+        , 83, 88, 93, 97, 103, 108, 114, 119, 126, 132, 139, 145
+        , 153, 160, 168, 177, 185, 194, 204, 213, 224, 234, 246, 257
+        , 270, 282, 296, 309, 324, 339, 355, 372, 389, 407, 426, 445
+        , 466, 487, 510, 533, 558, 583, 610, 637, 666, 697, 728, 762
+        , 796, 832, 870, 909, 950, 993, 1038, 1085, 1134, 1185, 1238, 1293
+        , 1351, 1412, 1475, 1542, 1611, 1683, 1758, 1837, 1919, 2005, 2094, 2188
+        , 2286, 2388, 2494, 2605, 2721, 2843, 2969, 3102, 3240, 3384, 3535, 3692
+        , 3856, 4028, 4207, 4394, 4590]
+    i = 0
+    while i < 255 and x >= look_up_table[i]:
+        i = i + 1
+    return i
 
 
 def extract_weight_bias_from_model():
@@ -62,40 +110,6 @@ def extract_weight_bias_from_file():
     bias.append(np.load("L3Bias.npy"))
     bias.append(np.load("outBias.npy"))
     return weights, bias
-
-
-def nn_compile_logic(nn_input):
-    """
-    running all MAC operations on pure software level
-
-    :param nn_input: input layer matrix
-    :return: output layer matrix
-    """
-    weights, bias = extract_weight_bias_from_model()
-
-    # load input to layer buffer
-    input_layer = nn_input
-
-    # init output_layer
-    output_layer = np.zeros(10)
-
-    if len(weights) == len(bias):
-        # between each pair of layers
-        for nth_layer in range(len(weights)):
-            output_layer = np.zeros(len(bias[nth_layer]))
-            for nth_output_node in range(weights[nth_layer].shape[1]):
-                mac = 0
-                for nth_input_node in range(weights[nth_layer].shape[0]):
-                    mac += input_layer[nth_input_node] * weights[nth_layer][nth_input_node][nth_output_node]
-                mac += bias[nth_layer][nth_output_node]
-                mac = sigmoid(mac)
-                output_layer[nth_output_node] = mac
-            input_layer = output_layer
-        return output_layer
-    else:
-        print("weights and bias length don't match!")
-        print("weights length: ", len(weights))
-        print("bias length: ", len(bias))
 
 
 def line_to_binary(line, scale, signed):
@@ -347,6 +361,42 @@ def biases_to_hex(biases, scale, num_bytes=4):
     return interleaved_array
 
 
+def nn_compile_logic(nn_input):
+    """
+    running all MAC operations on pure software level
+
+    :param nn_input: input layer matrix
+    :return: output layer matrix
+    """
+    weights, bias = extract_weight_bias_from_file()
+
+    # load input to layer buffer
+    input_layer = nn_input
+
+    # init output_layer
+    output_layer = np.zeros(10)
+
+    if len(weights) == len(bias):
+        # between each pair of layers
+        for nth_layer in range(len(weights)):
+            output_layer = np.zeros(len(bias[nth_layer]))
+            for nth_output_node in range(weights[nth_layer].shape[1]):
+                mac = 0
+                for nth_input_node in range(weights[nth_layer].shape[0]):
+                    lb = input_layer[nth_input_node]
+                    weight = weights[nth_layer][nth_input_node][nth_output_node]
+                    mac += input_layer[nth_input_node] * weights[nth_layer][nth_input_node][nth_output_node]
+                mac += bias[nth_layer][nth_output_node]
+                mac = LUTsigmoid(mac)
+                output_layer[nth_output_node] = mac
+            input_layer = output_layer
+        return output_layer
+    else:
+        print("weights and bias length don't match!")
+        print("weights length: ", len(weights))
+        print("bias length: ", len(bias))
+
+
 def nn_compile_with_inference(input_layer):
     """Function Description:
     Suppose SPI block and inference block work, meaning we only need to write weights, bias and layer descriptions into memory array in the correct order.
@@ -521,9 +571,9 @@ def nn_compile_with_spi(input_layer):
     """
     weights, bias = extract_weight_bias_from_file()
     weight_scale = 1
-    x_scale = 5
+    x_scale = 1
     bias_scale = weight_scale * x_scale
-    num_bias_bytes = 2
+    num_bias_bytes = 4
 
     array_data = []
     offset_address_holder = []
@@ -590,13 +640,20 @@ def nn_compile_with_spi(input_layer):
     # print(array_data)
     with open('PI_BLOCK_512.list', 'w') as data_file:
         i = 0
+        data_file.write('// neuron values to be stored in layer buffer')
+        data_file.write('\n')
         for neuron in input_layer:
-            data_file.write(line_to_hex([neuron], scale=x_scale, signed=False))
-            if i % 2 == 0:
-                data_file.write(' ')
-            else:
+            # data_file.write(line_to_hex([neuron], scale=x_scale, signed=False))
+            data_file.write(format(neuron*x_scale, '02x').upper())
+            if i % 8 == 7:
                 data_file.write('\n')
+            else:
+                data_file.write(' ')
             i += 1
+
+        data_file.write('\n')
+        data_file.write('// weights and biases to be stored in memory array')
+        data_file.write('\n')
 
         for line in array_data:
             data_file.write(line)
@@ -607,8 +664,7 @@ def nn_compile_with_spi(input_layer):
             i += 1
 
     with open('testbench.vh', 'w') as testbench:
-        testbench.write('`include "./banners/+runP_start.vh"\n')
-        testbench.write('`include "./banners/+test1.vh"\n')
+
         testbench.write('TASK_RSTEN;\n')
         testbench.write('TASK_RST;\n')
 
@@ -616,7 +672,10 @@ def nn_compile_with_spi(input_layer):
 
         lb_start_address = 0
 
-        testbench.write('TASK_INIT_WRITE_PI;\n')
+        testbench.write('TASK_INIT_WRITE_SPI;\n')
+
+        testbench.write('// write data into LB and array\n')
+
         for i in range(len(input_layer)):
             testbench.write("TASK_LBWR(16'h{});\n".format(format(lb_start_address + i, '04x').upper()))
 
@@ -627,14 +686,19 @@ def nn_compile_with_spi(input_layer):
 
         array_address = 0
         for nth_layer in range(len(weights)):
+
+            testbench.write('\n// layer {}\n'.format(nth_layer))
+            testbench.write("TASK_ACCRST;\n")
+
+            num_in_neu = weights[nth_layer].shape[0]
+            num_out_neu = weights[nth_layer].shape[1]
             if nth_layer % 2 == 1:
-                lb_input_start_address = 512
+                lb_input_start_address = lb_output_start_address
                 lb_output_start_address = 0
             else:
                 lb_input_start_address = 0
-                lb_output_start_address = 512
-            num_in_neu = weights[nth_layer].shape[0]
-            num_out_neu = weights[nth_layer].shape[1]
+                lb_output_start_address = 1024 - num_out_neu
+
             num_chunks = num_out_neu // 4
             num_leftover = num_out_neu % 4
             lb_output_current_address = lb_output_start_address
@@ -653,8 +717,9 @@ def nn_compile_with_spi(input_layer):
                     testbench.write("TASK_BIASBUF({},16'h{});\n".format(num_bias_bytes, format(array_address, '04x').upper()))
                     array_address += num_bias_bytes
                     for i in range(4):
-                        testbench.write("TASK_NEURONACT(32'h{}{});\n".format(format(i + 1, '04x').upper(), format(lb_output_current_address, '04x').upper()))
+                        testbench.write("TASK_NEURONACT(32'h{}{});\n".format(format(i, '04x').upper(), format(lb_output_current_address, '04x').upper()))
                         lb_output_current_address += 1
+                    testbench.write("TASK_ACCRST;\n")
 
                 if num_leftover > 0:
                     lb_input_current_address = lb_input_start_address
@@ -665,8 +730,9 @@ def nn_compile_with_spi(input_layer):
                     testbench.write("TASK_BIASBUF({},16'h{});\n".format(num_bias_bytes, format(array_address, '04x').upper()))
                     array_address += num_bias_bytes
                     for i in range(num_leftover):
-                        testbench.write("TASK_NEURONACT(32'h{}{});\n".format(format(i + 1, '04x').upper(), format(lb_output_current_address, '04x').upper()))
+                        testbench.write("TASK_NEURONACT(32'h{}{});\n".format(format(i, '04x').upper(), format(lb_output_current_address, '04x').upper()))
                         lb_output_current_address += 1
+                    testbench.write("TASK_ACCRST;\n")
             else:
                 for ith_chunk in range(num_chunks):
                     sparse_input_neuron_index = 0
@@ -680,8 +746,9 @@ def nn_compile_with_spi(input_layer):
                     testbench.write("TASK_BIASBUF({},16'h{});\n".format(num_bias_bytes, format(array_address, '04x').upper()))
                     array_address += num_bias_bytes
                     for i in range(4):
-                        testbench.write("TASK_NEURONACT(32'h{}{});\n".format(format(i + 1, '04x').upper(), format(lb_output_current_address, '04x').upper()))
+                        testbench.write("TASK_NEURONACT(32'h{}{});\n".format(format(i, '04x').upper(), format(lb_output_current_address, '04x').upper()))
                         lb_output_current_address += 1
+                    testbench.write("TASK_ACCRST;\n")
 
                 if num_leftover > 0:
                     sparse_input_neuron_index = 0
@@ -694,8 +761,8 @@ def nn_compile_with_spi(input_layer):
                         sparse_input_neuron_index += 1
                     testbench.write("TASK_BIASBUF({},16'h{});\n".format(num_bias_bytes, format(array_address, '04x').upper()))
                     array_address += num_bias_bytes
+                    testbench.write("TASK_ACCRST;\n")
                     for i in range(num_leftover):
-                        testbench.write("TASK_NEURONACT(32'h{}{});\n".format(format(i + 1, '04x').upper(), format(lb_output_current_address, '04x').upper()))
                         lb_output_current_address += 1
 
 
@@ -710,17 +777,39 @@ if __name__ == '__main__':
     X_train = X_train.reshape(num_train_samples, 784)
     X_test = X_test.reshape(num_test_samples, 784)
 
-    np.save("L1Weights", np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]))
-    # np.save("L2Weights", np.array([[17, 18, 19, 20, 21], [22, 23, 24, 25, 26], [27, 28, 29, 30, 31], [32, 33, 34, 35, 36]]))
-    np.save("L2Weights", np.array([[17, 0, 0, 0, 0], [0, 0, 0, 0, 26], [7, 0, 29, 0, 0], [0, 33, 0, 0, 0]]))
-    np.save("L3Weights", np.array([[37, 38, 39], [40, 41, 42], [43, 44, 45], [46, 47, 48], [49, 50, 51]]))
-    np.save("outWeights", np.array([[52, 53], [54, 55], [56, 57]]))
-    np.save("L1Bias", np.array([128, 129, 130, 131]))
-    np.save("L2Bias", np.array([132, 133, 134, 135, 136]))
-    np.save("L3Bias", np.array([137, 138, 139]))
-    np.save("outBias", np.array([140, 141]))
+    # np.save("L1Weights", np.array([[1, 2, 3, 4], [5, 6, 7, 8], [6, 5, 3, 4], [3, 2, 1, 1]]))
+    # np.save("L2Weights", np.array([[1, 1, 1, 2, 3], [2, 2, 2, 1, 3], [4, 1, 1, 2, 3], [1, 1, 2, 3, 2]]))
+    # # np.save("L2Weights", np.array([[17, 0, 0, 0, 0], [0, 0, 0, 0, 26], [7, 0, 29, 0, 0], [0, 33, 0, 0, 0]]))
+    # np.save("L3Weights", np.array([[3, 2, 4], [5, 1, 3], [1, 4, 2], [3, 2, 2], [2, 6, 1]]))
+    # np.save("outWeights", np.array([[3, 3], [2, 3], [4, 2]]))
+    # np.save("L1Bias", np.array([1, 2, 3, 4]))
+    # np.save("L2Bias", np.array([5, 6, 7, 8, 9]))
+    # np.save("L3Bias", np.array([0, 5, 10]))
+    # np.save("outBias", np.array([4, 4]))
 
-    nn_compile_with_inference(np.array([1, 2, 3, 4]))
+    neu_num_in = 10
+    neu_num_1 = 15
+    neu_num_2 = 8
+    neu_num_3 = 12
+    neu_num_4 = 4
+
+    np.random.seed(10)
+    np.save("L1Weights", np.random.randint(-4, 4, size=(neu_num_in, neu_num_1)))
+    np.save("L2Weights", np.random.randint(-4, 4, size=(neu_num_1, neu_num_2)))
+    np.save("L3Weights", np.random.randint(-4, 4, size=(neu_num_2, neu_num_3)))
+    np.save("outWeights", np.random.randint(-4, 4, size=(neu_num_3, neu_num_4)))
+    np.save("L1Bias", np.random.randint(-4, 4, size=neu_num_1))
+    np.save("L2Bias", np.random.randint(-4, 4, size=neu_num_2))
+    np.save("L3Bias", np.random.randint(-4, 4, size=neu_num_3))
+    np.save("outBias", np.random.randint(-4, 4, size=neu_num_4))
+    layer_in = np.random.randint(0, 4, size=neu_num_in)
+
+    nn_compile_with_spi(np.array(layer_in))
+    print(nn_compile_logic(np.array(layer_in)))
+
+    # print(nn_compile_with_spi(np.array(X_train[0])))
+    # print(nn_compile_logic(np.array(X_train[0])))
+    # print(y_train[0])
 
     # for i in range(1):
     #     predict = nn_compile_with_spi(X_train[i])

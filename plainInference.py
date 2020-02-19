@@ -58,7 +58,7 @@ np.set_printoptions(threshold=sys.maxsize)
 # ,4766,4978,5200]
 
 
-def recursiveBinarySearch(aList, target, start, end):
+def binarySearch(aList, target, start, end):
     #aList = sorted(aList)
 
     if target >= aList[len(aList)-1]:
@@ -71,9 +71,9 @@ def recursiveBinarySearch(aList, target, start, end):
             return midpoint
         else:
             if target < aList[midpoint]:
-                return recursiveBinarySearch(aList, target, start, midpoint-1)
+                return binarySearch(aList, target, start, midpoint - 1)
             else:
-                return recursiveBinarySearch(aList, target, midpoint+1, end)
+                return binarySearch(aList, target, midpoint + 1, end)
 
 
 def LUTsigmoid(x):
@@ -81,10 +81,10 @@ def LUTsigmoid(x):
     if type(x).__name__ == "ndarray":
         result = []
         for x1 in x:
-            result.append(recursiveBinarySearch(look_up_table, x1, 0, len(look_up_table))/255.0)
+            result.append(binarySearch(look_up_table, x1, 0, len(look_up_table)) / 255.0)
         return np.array(result)
     else:
-        return recursiveBinarySearch(look_up_table, x, 0, len(look_up_table))/255.0
+        return binarySearch(look_up_table, x, 0, len(look_up_table)) / 255.0
 
 
 def threshold(x):
@@ -102,41 +102,41 @@ if __name__ == "__main__":
     print(y_test.size)
     # print(mnist.test.images.shape)
 
-    w1 = np.load("L1Weights.npy")
-    w2 = np.load("L2Weights.npy")
-    w3 = np.load("L3Weights.npy")
-    w4 = np.load("outWeights.npy")
-    b1 = np.load("L1Bias.npy")
-    b2 = np.load("L2Bias.npy")
-    b3 = np.load("L3Bias.npy")
-    b4 = np.load("outBias.npy")
-
-
-    w1 = (w1 * weight_scale)
-    w2 = (w2 * weight_scale)
-    w3 = (w3 * weight_scale)
-    w4 = (w4 * weight_scale)
-    b1 = (b1 * sum_scale)
-    b2 = (b2 * sum_scale)
-    b3 = (b3 * sum_scale)
-    b4 = (b4 * sum_scale)
-
-
-    ############################################
-    # display weights bias and av distribution #
-    ############################################
-    fig, ax = plt.subplots(4, 3)
-    ax[0, 0].hist(w1.flatten(), 80)
-    ax[0, 1].hist(b1.flatten(), 80)
-#    ax[0, 2].hist(y1.flatten(), 80)
-    ax[1, 0].hist(w2.flatten(), 80)
-    ax[1, 1].hist(b2.flatten(), 80)
-#    ax[1, 2].hist(y2.flatten(), 80)
-    ax[2, 0].hist(w3.flatten(), 80)
-    ax[2, 1].hist(b3.flatten(), 80)
-#    ax[2, 2].hist(y3.flatten(), 80)
-    ax[3, 0].hist(w4.flatten(), 80)
-    ax[3, 1].hist(b4.flatten(), 80)
-#    ax[3, 2].hist(x4.flatten(), 80)
-    fig.savefig("distributions.png")
-    plt.show()
+#     w1 = np.load("L1Weights.npy")
+#     w2 = np.load("L2Weights.npy")
+#     w3 = np.load("L3Weights.npy")
+#     w4 = np.load("outWeights.npy")
+#     b1 = np.load("L1Bias.npy")
+#     b2 = np.load("L2Bias.npy")
+#     b3 = np.load("L3Bias.npy")
+#     b4 = np.load("outBias.npy")
+#
+#
+#     w1 = (w1 * weight_scale)
+#     w2 = (w2 * weight_scale)
+#     w3 = (w3 * weight_scale)
+#     w4 = (w4 * weight_scale)
+#     b1 = (b1 * sum_scale)
+#     b2 = (b2 * sum_scale)
+#     b3 = (b3 * sum_scale)
+#     b4 = (b4 * sum_scale)
+#
+#
+#     ############################################
+#     # display weights bias and av distribution #
+#     ############################################
+#     fig, ax = plt.subplots(4, 3)
+#     ax[0, 0].hist(w1.flatten(), 80)
+#     ax[0, 1].hist(b1.flatten(), 80)
+# #    ax[0, 2].hist(y1.flatten(), 80)
+#     ax[1, 0].hist(w2.flatten(), 80)
+#     ax[1, 1].hist(b2.flatten(), 80)
+# #    ax[1, 2].hist(y2.flatten(), 80)
+#     ax[2, 0].hist(w3.flatten(), 80)
+#     ax[2, 1].hist(b3.flatten(), 80)
+# #    ax[2, 2].hist(y3.flatten(), 80)
+#     ax[3, 0].hist(w4.flatten(), 80)
+#     ax[3, 1].hist(b4.flatten(), 80)
+# #    ax[3, 2].hist(x4.flatten(), 80)
+#     fig.savefig("distributions.png")
+#     plt.show()
