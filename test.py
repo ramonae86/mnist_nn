@@ -1,5 +1,7 @@
 import numpy as np
 
-a = np.random.randint(0, 4, size=(4, 4))
+a = [[1, 2], [5, 6, 7], [6, 5], [3, 2, 1, 1]]
 
-print(a)
+b = (len(x) for x in a)
+
+print(b)
